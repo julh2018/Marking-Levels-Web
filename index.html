@@ -1,126 +1,368 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#edf5ff">
 <title>Markig Levels</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
+:root {
+  --blue:#1268bd;
+  --dark:#174b82;
+  --light:#edf5ff;
+  --white:#ffffff;
+  --muted:#66819d;
+}
+* {box-sizing:border-box}
 body {
-  margin: 0;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background: #edf5ff;
-  color: #174b82;
+  margin:0;
+  padding:0 0 85px;
+  font-family:Arial,sans-serif;
+  background:var(--light);
+  color:var(--dark);
 }
-.header {
-  text-align: center;
-  padding: 20px 5px;
+header {
+  background:linear-gradient(135deg,#1268bd,#174b82);
+  color:white;
+  padding:28px 20px 30px;
+  border-radius:0 0 25px 25px;
 }
-.header h1 { color: #1268bd; }
-.header p { color: #587797; }
-h3 { margin-top: 25px; }
+.top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo {font-size:21px;font-weight:bold}
+.tag {font-size:11px;opacity:.85}
+.welcome {margin-top:28px}
+.welcome h1 {font-size:25px;margin:0 0 8px}
+.welcome p {font-size:13px;line-height:1.6;opacity:.9}
+.start {
+  display:inline-block;
+  margin-top:12px;
+  padding:13px 22px;
+  background:white;
+  color:var(--blue);
+  border:0;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.container {padding:20px}
+.section-title {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:8px 0 15px;
+}
+.section-title h2 {font-size:18px;margin:0}
+.small {font-size:12px;color:var(--muted)}
+.stats {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:25px;
+}
+.stat {
+  background:white;
+  padding:17px;
+  border-radius:15px;
+  border:1px solid #dceafa;
+}
+.stat strong {display:block;font-size:22px;color:var(--blue)}
+.stat span {font-size:12px;color:var(--muted)}
 .grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 .card {
-  background: white;
-  padding: 18px 10px;
-  border-radius: 14px;
-  text-align: center;
-  font-weight: bold;
-  border: 1px solid #d6e7fa;
-  cursor: pointer;
+  background:white;
+  border:1px solid #dceafa;
+  border-radius:16px;
+  padding:17px 13px;
+  min-height:125px;
+  text-align:left;
+  color:var(--dark);
+  cursor:pointer;
 }
-.card:active { background: #dcecff; }
-#lesson {
-  display: none;
-  margin-top: 20px;
-  background: white;
-  padding: 20px;
-  border-radius: 14px;
-  line-height: 1.6;
+.card:active {transform:scale(.98)}
+.card .emoji {font-size:26px}
+.card h3 {font-size:14px;margin:12px 0 5px}
+.card p {font-size:11px;color:var(--muted);margin:0;line-height:1.4}
+#lessonPage {display:none}
+.lesson-box {
+  background:white;
+  padding:20px;
+  border-radius:17px;
+  line-height:1.7;
+  border:1px solid #dceafa;
 }
-.footer {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 12px;
-  color: #66819d;
+.lesson-box h2 {color:var(--blue)}
+.lesson-box h3 {font-size:15px}
+.lesson-box p,.lesson-box li {font-size:14px}
+.back {
+  border:0;
+  background:#dcecff;
+  color:var(--blue);
+  padding:11px 16px;
+  border-radius:10px;
+  font-weight:bold;
+  margin-bottom:15px;
 }
+.tip {
+  background:#edf5ff;
+  padding:13px;
+  border-radius:12px;
+  font-size:13px;
+}
+footer {
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  padding:20px;
+}
+.nav {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:space-around;
+  background:white;
+  border-top:1px solid #dceafa;
+  padding:12px 5px;
+  z-index:10;
+}
+.nav button {
+  border:0;
+  background:none;
+  color:var(--muted);
+  font-size:11px;
+  cursor:pointer;
+}
+.nav button span {display:block;font-size:20px;margin-bottom:3px}
+.nav button.active {color:var(--blue);font-weight:bold}
+.hidden {display:none}
 </style>
 </head>
+
 <body>
 
-<div class="header">
-  <h1>📊 MARKIG LEVELS</h1>
-  <h2>Forex Learning Academy</h2>
-  <p>Learn • Analyze • Trade Better</p>
-</div>
+<header>
+  <div class="top">
+    <div class="logo">📊 MARKIG LEVELS</div>
+    <div class="tag">TRADING ACADEMY</div>
+  </div>
+  <div class="welcome">
+    <h1>Master Your Trading Journey</h1>
+    <p>Learn Forex. Master your mindset. Trade with discipline.</p>
+    <button class="start" onclick="openAcademy()">START LEARNING →</button>
+  </div>
+</header>
 
-<h3>Trading Mastery Program</h3>
+<main class="container" id="homePage">
 
-<div class="grid">
-  <div class="card" onclick="showLesson('emotion')">🧠<br>Emotion Control</div>
-  <div class="card" onclick="showLesson('responsibility')">🎯<br>Responsibility</div>
-  <div class="card" onclick="showLesson('chart')">📊<br>Chart Reading</div>
-  <div class="card" onclick="showLesson('rr')">💎<br>Risk to Reward</div>
-  <div class="card" onclick="showLesson('accuracy')">🏆<br>Entry Accuracy</div>
-  <div class="card" onclick="showLesson('revenge')">🛑<br>Stop Revenge Trading</div>
-  <div class="card" onclick="showLesson('overtrading')">⚖️<br>Stop Overtrading</div>
-  <div class="card" onclick="showLesson('academy')">📚<br>Forex Academy</div>
-</div>
+  <div class="section-title">
+    <h2>Your Learning Dashboard</h2>
+    <span class="small">2026 Edition</span>
+  </div>
 
-<div id="lesson">
-  <h3 id="lessonTitle"></h3>
-  <p id="lessonText"></p>
-  <button onclick="document.getElementById('lesson').style.display='none'">
-    ← Back to menu
+  <div class="stats">
+    <div class="stat">
+      <strong>08</strong>
+      <span>Learning Modules</span>
+    </div>
+    <div class="stat">
+      <strong>01</strong>
+      <span>Trading Goal</span>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>Trading Mastery Program</h2>
+    <span class="small">Choose a topic</span>
+  </div>
+
+  <div class="grid" id="moduleGrid"></div>
+
+  <footer>
+    MARKIG LEVELS © 2026<br>
+    Educational purposes only. Trading involves risk.
+  </footer>
+</main>
+
+<main class="container" id="lessonPage">
+  <button class="back" onclick="goHome()">← Back to Dashboard</button>
+  <div class="lesson-box">
+    <div class="small" id="lessonCategory">LEARNING MODULE</div>
+    <h2 id="lessonTitle"></h2>
+    <p id="lessonIntro"></p>
+    <div id="lessonContent"></div>
+  </div>
+</main>
+
+<nav class="nav">
+  <button class="active" onclick="goHome()" id="homeNav">
+    <span>🏠</span>Home
   </button>
-</div>
-
-<div class="footer">
-  MARKIG LEVELS © 2026<br>
-  Educational purposes only. Trading involves risk.
-</div>
+  <button onclick="openAcademy()">
+    <span>📚</span>Academy
+  </button>
+  <button onclick="showAbout()">
+    <span>ℹ️</span>About
+  </button>
+</nav>
 
 <script>
 const tg = window.Telegram?.WebApp;
 if (tg) {
   tg.ready();
   tg.expand();
+  tg.setHeaderColor("#1268bd");
+  tg.setBackgroundColor("#edf5ff");
 }
 
-const lessons = {
- emotion: ["Emotion Controlling Master",
- "Control fear, greed and hesitation. Follow your trading plan. Never make impulsive decisions."],
- responsibility: ["Responsibility & Discipline",
- "Accept responsibility for every trade. Record your decisions and review your performance."],
- chart: ["Advanced Chart Reading",
- "Study market structure, trends, support, resistance and price action before entering a trade."],
- rr: ["Risk-to-Reward Mastery",
- "Calculate your potential loss and profit before entering. A favorable ratio does not guarantee a winning trade."],
- accuracy: ["Entry Accuracy",
- "Wait for a clear setup and confirmation. No strategy can guarantee perfect accuracy."],
- revenge: ["Stop Revenge Trading",
- "Never increase your risk to recover a loss. Take a break after emotional trades."],
- overtrading: ["Stop Overtrading",
- "Focus on quality setups. No trade is also a valid trading decision."],
- academy: ["Forex Academy",
- "Start with Forex basics, candlesticks, market structure, ICT, SMC and risk management."]
-};
+const modules = [
+{
+ id:"emotion",icon:"🧠",title:"Emotion Control",
+ desc:"Control fear, greed and hesitation.",
+ intro:"Successful trading starts with emotional control.",
+ sections:[
+ ["Understand your emotions","Fear can make you exit early. Greed can make you hold too long. Recognize your emotions before taking action."],
+ ["Build a trading routine","Check your trading plan before entering. Decide your entry, stop loss and target in advance."],
+ ["Practical rule","Never enter a trade just because you feel you might miss an opportunity."]
+ ]
+},
+{
+ id:"responsibility",icon:"🎯",title:"Responsibility",
+ desc:"Build discipline and accountability.",
+ intro:"Every trading decision should follow a clear plan.",
+ sections:[
+ ["Own your decisions","Record why you entered, where your stop loss was and whether you followed your rules."],
+ ["Review your trades","Review winning and losing trades. A profitable trade can still be a bad decision if you broke your rules."],
+ ["Practical rule","Never blame the market for a trade that did not follow your plan."]
+ ]
+},
+{
+ id:"chart",icon:"📊",title:"Chart Reading",
+ desc:"Understand market structure and price.",
+ intro:"Learn to read price action before looking for an entry.",
+ sections:[
+ ["Market structure","Identify higher highs and higher lows in an uptrend. Identify lower highs and lower lows in a downtrend."],
+ ["Support and resistance","Mark important price areas where the market previously reacted. Treat them as zones, not guaranteed turning points."],
+ ["Confirmation","Wait for a clear reaction or structure break. Avoid entering based on one candle alone."]
+ ]
+},
+{
+ id:"rr",icon:"💎",title:"Risk to Reward",
+ desc:"Protect capital and manage risk.",
+ intro:"Risk management helps you survive losing trades.",
+ sections:[
+ ["Calculate your risk","Decide your maximum acceptable loss before opening a trade. Many traders use a small fixed percentage of account equity."],
+ ["Understand R:R","A 1:2 risk-to-reward ratio means risking $1 to target $2. It does not guarantee a winning trade."],
+ ["Practical rule","Always calculate position size from your stop loss and chosen risk."]
+ ]
+},
+{
+ id:"accuracy",icon:"🏆",title:"Entry Accuracy",
+ desc:"Wait for confirmation and quality setups.",
+ intro:"Good entries come from a repeatable process, not prediction.",
+ sections:[
+ ["Higher timeframe bias","Check H4 and H1 direction before searching for an entry on lower timeframes."],
+ ["Wait for confirmation","Look for liquidity sweep, displacement and a market structure shift when using an ICT/SMC model."],
+ ["Practical rule","If your entry conditions are not complete, do not enter."]
+ ]
+},
+{
+ id:"revenge",icon:"🛑",title:"Stop Revenge Trading",
+ desc:"Avoid emotional recovery trades.",
+ intro:"Trying to recover a loss quickly can create bigger losses.",
+ sections:[
+ ["Recognize revenge trading","Increasing lot size or entering immediately after a loss can be signs of revenge trading."],
+ ["Take a break","Step away from the chart after an emotional loss. Review the trade only when calm."],
+ ["Practical rule","Never increase risk to recover a previous loss."]
+ ]
+},
+{
+ id:"overtrading",icon:"⚖️",title:"Stop Overtrading",
+ desc:"Focus on quality, not quantity.",
+ intro:"More trades do not automatically mean more profit.",
+ sections:[
+ ["Set daily limits","Choose a maximum number of trades and a daily loss limit before starting."],
+ ["Wait for your session","Trade only during your planned market sessions and avoid random entries."],
+ ["Practical rule","No trade is also a valid trading decision."]
+ ]
+},
+{
+ id:"academy",icon:"📚",title:"Forex Academy",
+ desc:"Build your foundation step by step.",
+ intro:"Develop your knowledge from basics to advanced concepts.",
+ sections:[
+ ["Forex basics","Learn currency pairs, pips, spread, lot size, leverage and margin."],
+ ["Technical analysis","Study candlesticks, trends, support and resistance, and market structure."],
+ ["ICT and SMC","Learn liquidity, BOS, CHoCH, MSS, FVG, order blocks and risk management."],
+ ["Practice","Use a demo account and maintain a trading journal before risking real money."]
+ ]
+}
+];
 
-function showLesson(id) {
- document.getElementById("lessonTitle").textContent = lessons[id][0];
- document.getElementById("lessonText").textContent = lessons[id][1];
- document.getElementById("lesson").style.display = "block";
- window.scrollTo(0, document.body.scrollHeight);
+const grid=document.getElementById("moduleGrid");
+
+modules.forEach(m=>{
+ const card=document.createElement("button");
+ card.className="card";
+ card.innerHTML=`<div class="emoji">${m.icon}</div><h3>${m.title}</h3><p>${m.desc}</p>`;
+ card.onclick=()=>showLesson(m.id);
+ grid.appendChild(card);
+});
+
+function showLesson(id){
+ const m=modules.find(x=>x.id===id);
+ if(!m)return;
+
+ document.getElementById("lessonCategory").textContent="TRADING MASTERY PROGRAM";
+ document.getElementById("lessonTitle").textContent=m.title;
+ document.getElementById("lessonIntro").textContent=m.intro;
+
+ const content=document.getElementById("lessonContent");
+ content.innerHTML="";
+
+ m.sections.forEach((s,i)=>{
+  const section=document.createElement("section");
+  const heading=document.createElement("h3");
+  heading.textContent=(i+1)+". "+s[0];
+  const paragraph=document.createElement("p");
+  paragraph.textContent=s[1];
+  section.append(heading,paragraph);
+  content.appendChild(section);
+ });
+
+ const tip=document.createElement("div");
+ tip.className="tip";
+ tip.textContent="Remember: Trading involves risk. Practice on a demo account and never risk money you cannot afford to lose.";
+ content.appendChild(tip);
+
+ document.getElementById("homePage").style.display="none";
+ document.getElementById("lessonPage").style.display="block";
+ window.scrollTo(0,0);
+}
+
+function goHome(){
+ document.getElementById("lessonPage").style.display="none";
+ document.getElementById("homePage").style.display="block";
+ window.scrollTo(0,0);
+}
+
+function openAcademy(){
+ showLesson("academy");
+}
+
+function showAbout(){
+ alert("Markig Levels Forex Learning Academy\\nLearn • Analyze • Trade Better\\nEducational purposes only.");
 }
 </script>
 </body>
 </html>
-d ~/markig_levels/web
-ls
-
