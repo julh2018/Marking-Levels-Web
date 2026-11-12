@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markig Levels</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #edf5ff;
+  color: #174b82;
+}
+.header {
+  text-align: center;
+  padding: 20px 5px;
+}
+.header h1 { color: #1268bd; }
+.header p { color: #587797; }
+h3 { margin-top: 25px; }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.card {
+  background: white;
+  padding: 18px 10px;
+  border-radius: 14px;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #d6e7fa;
+  cursor: pointer;
+}
+.card:active { background: #dcecff; }
+#lesson {
+  display: none;
+  margin-top: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  line-height: 1.6;
+}
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 12px;
+  color: #66819d;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📊 MARKIG LEVELS</h1>
+  <h2>Forex Learning Academy</h2>
+  <p>Learn • Analyze • Trade Better</p>
+</div>
+
+<h3>Trading Mastery Program</h3>
+
+<div class="grid">
+  <div class="card" onclick="showLesson('emotion')">🧠<br>Emotion Control</div>
+  <div class="card" onclick="showLesson('responsibility')">🎯<br>Responsibility</div>
+  <div class="card" onclick="showLesson('chart')">📊<br>Chart Reading</div>
+  <div class="card" onclick="showLesson('rr')">💎<br>Risk to Reward</div>
+  <div class="card" onclick="showLesson('accuracy')">🏆<br>Entry Accuracy</div>
+  <div class="card" onclick="showLesson('revenge')">🛑<br>Stop Revenge Trading</div>
+  <div class="card" onclick="showLesson('overtrading')">⚖️<br>Stop Overtrading</div>
+  <div class="card" onclick="showLesson('academy')">📚<br>Forex Academy</div>
+</div>
+
+<div id="lesson">
+  <h3 id="lessonTitle"></h3>
+  <p id="lessonText"></p>
+  <button onclick="document.getElementById('lesson').style.display='none'">
+    ← Back to menu
+  </button>
+</div>
+
+<div class="footer">
+  MARKIG LEVELS © 2026<br>
+  Educational purposes only. Trading involves risk.
+</div>
+
+<script>
+const tg = window.Telegram?.WebApp;
+if (tg) {
+  tg.ready();
+  tg.expand();
+}
+
+const lessons = {
+ emotion: ["Emotion Controlling Master",
+ "Control fear, greed and hesitation. Follow your trading plan. Never make impulsive decisions."],
+ responsibility: ["Responsibility & Discipline",
+ "Accept responsibility for every trade. Record your decisions and review your performance."],
+ chart: ["Advanced Chart Reading",
+ "Study market structure, trends, support, resistance and price action before entering a trade."],
+ rr: ["Risk-to-Reward Mastery",
+ "Calculate your potential loss and profit before entering. A favorable ratio does not guarantee a winning trade."],
+ accuracy: ["Entry Accuracy",
+ "Wait for a clear setup and confirmation. No strategy can guarantee perfect accuracy."],
+ revenge: ["Stop Revenge Trading",
+ "Never increase your risk to recover a loss. Take a break after emotional trades."],
+ overtrading: ["Stop Overtrading",
+ "Focus on quality setups. No trade is also a valid trading decision."],
+ academy: ["Forex Academy",
+ "Start with Forex basics, candlesticks, market structure, ICT, SMC and risk management."]
+};
+
+function showLesson(id) {
+ document.getElementById("lessonTitle").textContent = lessons[id][0];
+ document.getElementById("lessonText").textContent = lessons[id][1];
+ document.getElementById("lesson").style.display = "block";
+ window.scrollTo(0, document.body.scrollHeight);
+}
+</script>
+</body>
+</html>
+d ~/markig_levels/web
+ls
+
